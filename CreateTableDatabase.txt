@@ -1,0 +1,29 @@
+-- Table: chatzalo
+
+-- DROP TABLE chatzalo;
+
+CREATE TABLE chatzalo
+(
+  id bigserial NOT NULL,
+  name character varying(100),
+  email character varying(100),
+  address character varying(500),
+  note character varying(200),
+  image character varying(100),
+  birthday character varying(20),
+  category character varying(200),
+  phone text,
+  profile text,
+  sex text,
+  CONSTRAINT chatzalo_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE chatzalo
+  OWNER TO postgres;
+
+
+
+
+

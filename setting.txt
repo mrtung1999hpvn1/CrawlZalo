@@ -1,0 +1,4 @@
+B1 : Cài đặt nodejs
+B2 : Chạy câu lệnh npm install
+B3 : Thiết lập vùng lưu vào cơ sở dữ liệu
+B4 : Chạy câu lệnh cmd npm start
