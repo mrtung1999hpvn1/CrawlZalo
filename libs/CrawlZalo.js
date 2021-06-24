@@ -237,6 +237,141 @@ https://www.facebook.com/99plusstudioo
     }
 
     async sendZalo() {
+        try {
+            var Mesage =
+                `Cả nhà yêu ơi bấm like vào follow trang page của mình nhé
+Yêu nhà mình
+https://www.facebook.com/99plusstudioo
+`
+            // Sleep
+            function sleep(milliseconds) {
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds);
+            }
+            const page = await this.browser.newPage();
+
+            const url = `https://chat.zalo.me/`;
+            let result
+
+            result = await page.goto(url)
+
+            if (result.status() === 404) {
+                console.error('404 status code found in result')
+            } else {
+                // Delay 60s thời gian đăng nhập zalo
+                await page.waitForTimeout(60000);
+                const newData = await fetch('http://103.127.207.24:3004/ChatZaloData')
+                .then(res => res.json())
+                .then(json => {
+                    return json
+                } );
+
+                // console.log(newData.length)
+                // console.log(newData)
+                for (let i = 0 ; i <= newData.length ; i++){
+                    sleep(10500)
+                    console.log(newData[i])
+                    const foo = await page.$('#contact-search-input');
+                    await foo.click({ clickCount: 3 });
+                    await page.keyboard.type(newData[i].phone)
+
+                    sleep(1500)
+                    const numberOfDivs = await page.evaluate(_ => {
+                        return document.querySelectorAll('.list-friend-conctact').length;
+                    });
+
+                    if (parseInt(numberOfDivs) > 0) {
+                        
+                        const clickListUser = await page.$('.list-friend-conctact')
+                        await clickListUser.click({ clickCount: 3 })
+                        sleep(1500)
+                        const clickAvata = await page.$("#input_line_0")
+                        await clickAvata.click({ clickCount: 3 })
+
+                        await page.keyboard.type(Mesage)
+
+                        await page.press('Enter');
+                    } else {
+
+                    }
+
+                }
+
+
+                // focus đến ô tìm kiếm
+                // 034 5 990 398
+                // input_line_0
+                // for (let i = 5990390; i <= 5990400; i++) {
+                //     const phoneNumber = `034` + "0".repeat(7 - (i).toString().length) + i
+                //     const foo = await page.$('#contact-search-input');
+                //     await foo.click({ clickCount: 3 });
+                //     await page.keyboard.type(`034 ` + "0".repeat(7 - (i).toString().length) + i)
+
+                //     sleep(1500)
+
+                //     // console.log(`034 ` + "0".repeat(7 - (i).toString().length) + i)
+
+                //     const numberOfDivs = await page.evaluate(_ => {
+                //         return document.querySelectorAll('.list-friend-conctact').length;
+                //     });
+
+                //     console.log(numberOfDivs)
+                //     if (parseInt(numberOfDivs) > 0) {
+                //         const crawed = await page.evaluate(async () => {
+                //             const content = document.querySelector('.list-friend-conctact').innerText;
+                //             console.log(content)
+                //             return content;
+                //         })
+                //         const backgroundImage = await page.evaluate(el => window.getComputedStyle(el).backgroundImage, await page.$('.list-friend-conctact__avatar .avatar-img'))
+
+                //         const backgroundImageUrl = backgroundImage.substring(5, backgroundImage.length - 2);
+
+                //         const clickListUser = await page.$('.list-friend-conctact')
+                //         await clickListUser.click({ clickCount: 3 })
+                //         sleep(2500)
+                //         const clickAvata = await page.$(".threadChat__avatar clickable")
+                //         await clickAvata.click({ clickCount: 3 })
+                //         // friend-profile__groups
+                //         const crawledProfile = await page.evaluate(async () => {
+                //             const numberOfProfile = await page.evaluate(_ => {
+                //                 return document.querySelectorAll('.list-friend-conctact').length;
+                //             });
+                //             if (parseInt(numberOfProfile) > 0) {
+                //                 const data = {
+                //                     profile: document.querySelector('.friend-profile__groups').innerText,
+                //                     stt:
+                //                         parseInt(await page.evaluate(_ => {
+                //                             return document.querySelectorAll('.list-friend-conctact').length;
+                //                         })) > 0 ? document.querySelector('.stt').innerText : ' '
+                //                     ,
+                //                 }
+                //                 return data
+                //             } else {
+                //                 return {
+                //                     profile: ' ',
+                //                     stt: ' '
+                //                 }
+                //             }
+                //         })
+                //         console.log(crawed)
+                //         console.log(phoneNumber)
+                //         console.log(backgroundImageUrl)
+                //         console.log(crawledProfile)
+                //     } else {
+
+                //     }
+
+
+                // }
+
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
 
     }
 }
